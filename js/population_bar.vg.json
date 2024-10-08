@@ -1,0 +1,119 @@
+{
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "data": {
+            "url": "data/Life_Expectancy_at_Birth.csv",
+            "format": {
+                  "type": "csv"
+            }
+      },
+      "vconcat": [
+            {
+                  "layer": [
+                        {
+                              "params": [
+                                    {
+                                          "name": "brush",
+                                          "select": {
+                                                "type": "interval",
+                                                "encodings": [
+                                                      "x"
+                                                ]
+                                          }
+                                    }
+                              ],
+                              "mark": "bar",
+                              "encoding": {
+                                    "x": {
+                                          "field": "Country",
+                                          "type": "nominal",
+                                          "title": "Country",
+                                          "axis": {
+                                                "labelAngle": -45
+                                          }
+                                    },
+                                    "y": {
+                                          "aggregate": "mean",
+                                          "field": "Life Expectancy at Birth (2021)",
+                                          "type": "quantitative",
+                                          "title": "Average Life Expectancy"
+                                    },
+                                    "opacity": {
+                                          "condition": {
+                                                "param": "brush",
+                                                "value": 1
+                                          },
+                                          "value": 0.7
+                                    },
+                                    "tooltip": [
+                                          {
+                                                "field": "Country",
+                                                "type": "nominal",
+                                                "title": "Country"
+                                          },
+                                          {
+                                                "field": "Life Expectancy at Birth (2021)",
+                                                "type": "quantitative",
+                                                "aggregate": "mean",
+                                                "title": "Average Life Expectancy"
+                                          }
+                                    ]
+                              }
+                        },
+                        {
+                              "transform": [
+                                    {
+                                          "filter": {
+                                                "param": "brush"
+                                          }
+                                    }
+                              ],
+                              "mark": "rule",
+                              "encoding": {
+                                    "y": {
+                                          "aggregate": "mean",
+                                          "field": "Life Expectancy at Birth (2021)",
+                                          "type": "quantitative"
+                                    },
+                                    "color": {
+                                          "value": "firebrick"
+                                    },
+                                    "size": {
+                                          "value": 3
+                                    }
+                              }
+                        }
+                  ]
+            },
+            {
+                  "transform": [
+                        {
+                              "filter": {
+                                    "param": "brush"
+                              }
+                        }
+                  ],
+                  "mark": "text",
+                  "encoding": {
+                        "text": {
+                              "aggregate": "mean",
+                              "field": "Life Expectancy at Birth (2021)",
+                              "type": "quantitative",
+                              "format": ".2f",
+                              "title": "Selected Group Average"
+                        },
+                        "color": {
+                              "value": "firebrick"
+                        },
+                        "size": {
+                              "value": 15
+                        },
+                        "x": {
+                              "value": 50
+                        },
+                        "y": {
+                              "value": 10
+                        }
+                  }
+            }
+      ]
+}

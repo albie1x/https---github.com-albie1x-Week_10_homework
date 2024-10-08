@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "vega-lite": "^5.21.0"
+  }
+}
